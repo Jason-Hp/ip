@@ -24,6 +24,37 @@ public class Mike {
         String userInput = scanner.nextLine();
         while(!userInput.equalsIgnoreCase("bye")){
 
+            if(userInput.contains("unmark")){
+                int itemToUnmark = Integer.parseInt(userInput.split(" ")[1])-1;
+
+                if (itemToUnmark<0 || itemToUnmark>=numberOfItems){
+
+                    System.out.println("    _________________________________"+
+                            "___________________________");
+
+                    System.out.println("     Unmark inside the list! Try again!");
+
+                    System.out.println("    _________________________________"+
+                            "___________________________\n");
+
+                    userInput = scanner.nextLine();
+                    continue;
+                }
+                list[itemToUnmark].unmarkAsDone();
+                System.out.println("    _________________________________"+
+                        "___________________________\n"+
+                        "     OK, I've marked this task as not done yet:");
+
+                System.out.println("       " + "[" + list[itemToUnmark].getStatusIcon() +"] " + list[itemToUnmark].description);
+
+                System.out.println("    _________________________________"+
+                        "___________________________\n");
+
+                userInput = scanner.nextLine();
+                continue;
+            }
+
+
             if(userInput.contains("mark")){
                 int itemToMark = Integer.parseInt(userInput.split(" ")[1])-1;
 
