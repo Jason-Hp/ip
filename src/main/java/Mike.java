@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Mike {
     public static void main(String[] args) {
         String logo = ".------..------..------..------.\n" +
