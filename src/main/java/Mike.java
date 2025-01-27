@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Mike {
     public static void main(String[] args) {
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int numberOfItems = 0;
         Scanner scanner = new Scanner(System.in);
 
@@ -24,11 +24,43 @@ public class Mike {
         String userInput = scanner.nextLine();
         while(!userInput.equalsIgnoreCase("bye")){
 
+            if(userInput.contains("mark")){
+                int itemToMark = Integer.parseInt(userInput.split(" ")[1])-1;
+
+                if (itemToMark<0 || itemToMark>=numberOfItems){
+
+                    System.out.println("    _________________________________"+
+                            "___________________________");
+
+                    System.out.println("     Mark inside the list! Try again!");
+
+                    System.out.println("    _________________________________"+
+                            "___________________________\n");
+
+                    userInput = scanner.nextLine();
+                    continue;
+                }
+                list[itemToMark].markAsDone();
+                System.out.println("    _________________________________"+
+                        "___________________________\n"+
+                        "     Nice! I've marked this task as done:");
+
+                System.out.println("       " + "[" + list[itemToMark].getStatusIcon() +"] " + list[itemToMark].description);
+
+                System.out.println("    _________________________________"+
+                        "___________________________\n");
+
+                userInput = scanner.nextLine();
+                continue;
+            }
+
+
             if(userInput.equalsIgnoreCase("list")){
                 System.out.println("    _________________________________"+
-                        "___________________________");
+                        "___________________________\n"+
+                        "     Here are the tasks in your list:");
                 for(int i = 0; i < numberOfItems; i++){
-                    System.out.println("     "+(i + 1) + ". " + list[i]);
+                    System.out.println("     "+(i + 1) + "." + "[" + list[i].getStatusIcon() + "] " + list[i].description);
                 }
                 System.out.println("    _________________________________"+
                         "___________________________\n");
@@ -44,7 +76,9 @@ public class Mike {
                     "    _________________________________"+
                     "___________________________\n");
 
-            list[numberOfItems] = userInput;
+
+            Task t = new Task(userInput);
+            list[numberOfItems] = t;
             numberOfItems++;
             userInput = scanner.nextLine();
         }
