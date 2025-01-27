@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class Mike {
     public static void main(String[] args) {
-
+        String[] list = new String[100];
+        int numberOfItems = 0;
         Scanner scanner = new Scanner(System.in);
 
         String logo = ".------..------..------..------.\n" +
@@ -22,13 +23,29 @@ public class Mike {
 
         String userInput = scanner.nextLine();
         while(!userInput.equalsIgnoreCase("bye")){
+
+            if(userInput.equalsIgnoreCase("list")){
+                System.out.println("    _________________________________"+
+                        "___________________________");
+                for(int i = 0; i < numberOfItems; i++){
+                    System.out.println("     "+(i + 1) + ". " + list[i]);
+                }
+                System.out.println("    _________________________________"+
+                        "___________________________\n");
+                userInput = scanner.nextLine();
+                continue;
+            }
+
             System.out.println("    _________________________________"+
                     "___________________________\n"+
-                    "     "+
+                    "     added: "+
                     userInput+
                     "\n"+
                     "    _________________________________"+
                     "___________________________\n");
+
+            list[numberOfItems] = userInput;
+            numberOfItems++;
             userInput = scanner.nextLine();
         }
 
