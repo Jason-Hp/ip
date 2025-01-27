@@ -14,40 +14,40 @@ public class Mike {
                 "`------'`------'`------'`------'";
         System.out.println("Hello from\n" + logo);
 
-        System.out.println("    _____________________________"+
+        System.out.println("    _____________________________" +
                 "_______________________________\n" +
                 "     Hello! I'm Mike!\n" +
                 "     What can I do for you?\n" +
-                "    _________________________________"+
+                "    _________________________________" +
                 "___________________________\n");
 
         String userInput = scanner.nextLine();
-        while(!userInput.equalsIgnoreCase("bye")){
+        while (!userInput.equalsIgnoreCase("bye")) {
 
-            if(userInput.contains("unmark")){
-                int itemToUnmark = Integer.parseInt(userInput.split(" ")[1])-1;
+            if (userInput.contains("unmark")) {
+                int itemToUnmark = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
-                if (itemToUnmark<0 || itemToUnmark>=numberOfItems){
+                if (itemToUnmark < 0 || itemToUnmark >= numberOfItems) {
 
-                    System.out.println("    _________________________________"+
+                    System.out.println("    _________________________________" +
                             "___________________________");
 
                     System.out.println("     Unmark inside the list! Try again!");
 
-                    System.out.println("    _________________________________"+
+                    System.out.println("    _________________________________" +
                             "___________________________\n");
 
                     userInput = scanner.nextLine();
                     continue;
                 }
                 list[itemToUnmark].unmarkAsDone();
-                System.out.println("    _________________________________"+
-                        "___________________________\n"+
+                System.out.println("    _________________________________" +
+                        "___________________________\n" +
                         "     OK, I've marked this task as not done yet:");
 
-                System.out.println("       " + "[" + list[itemToUnmark].getStatusIcon() +"] " + list[itemToUnmark].description);
+                System.out.println("       " + "[" + list[itemToUnmark].getStatusIcon() + "] " + list[itemToUnmark].description);
 
-                System.out.println("    _________________________________"+
+                System.out.println("    _________________________________" +
                         "___________________________\n");
 
                 userInput = scanner.nextLine();
@@ -55,30 +55,30 @@ public class Mike {
             }
 
 
-            if(userInput.contains("mark")){
-                int itemToMark = Integer.parseInt(userInput.split(" ")[1])-1;
+            if (userInput.contains("mark")) {
+                int itemToMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
-                if (itemToMark<0 || itemToMark>=numberOfItems){
+                if (itemToMark < 0 || itemToMark >= numberOfItems) {
 
-                    System.out.println("    _________________________________"+
+                    System.out.println("    _________________________________" +
                             "___________________________");
 
                     System.out.println("     Mark inside the list! Try again!");
 
-                    System.out.println("    _________________________________"+
+                    System.out.println("    _________________________________" +
                             "___________________________\n");
 
                     userInput = scanner.nextLine();
                     continue;
                 }
                 list[itemToMark].markAsDone();
-                System.out.println("    _________________________________"+
-                        "___________________________\n"+
+                System.out.println("    _________________________________" +
+                        "___________________________\n" +
                         "     Nice! I've marked this task as done:");
 
-                System.out.println("       " + "[" + list[itemToMark].getStatusIcon() +"] " + list[itemToMark].description);
+                System.out.println("       " + "[" + list[itemToMark].getStatusIcon() + "] " + list[itemToMark].description);
 
-                System.out.println("    _________________________________"+
+                System.out.println("    _________________________________" +
                         "___________________________\n");
 
                 userInput = scanner.nextLine();
@@ -86,25 +86,25 @@ public class Mike {
             }
 
 
-            if(userInput.equalsIgnoreCase("list")){
-                System.out.println("    _________________________________"+
-                        "___________________________\n"+
+            if (userInput.equalsIgnoreCase("list")) {
+                System.out.println("    _________________________________" +
+                        "___________________________\n" +
                         "     Here are the tasks in your list:");
-                for(int i = 0; i < numberOfItems; i++){
-                    System.out.println("     "+(i + 1) + "." + "[" + list[i].getStatusIcon() + "] " + list[i].description);
+                for (int i = 0; i < numberOfItems; i++) {
+                    System.out.println("     " + (i + 1) + "." + "[" + list[i].getStatusIcon() + "] " + list[i].description);
                 }
-                System.out.println("    _________________________________"+
+                System.out.println("    _________________________________" +
                         "___________________________\n");
                 userInput = scanner.nextLine();
                 continue;
             }
 
-            System.out.println("    _________________________________"+
-                    "___________________________\n"+
-                    "     added: "+
-                    userInput+
-                    "\n"+
-                    "    _________________________________"+
+            System.out.println("    _________________________________" +
+                    "___________________________\n" +
+                    "     added: " +
+                    userInput +
+                    "\n" +
+                    "    _________________________________" +
                     "___________________________\n");
 
 
@@ -114,10 +114,10 @@ public class Mike {
             userInput = scanner.nextLine();
         }
 
-        System.out.println("    _________________________________"+
-                "___________________________\n"+
+        System.out.println("    _________________________________" +
+                "___________________________\n" +
                 "     Bye. Hope to see you again soon!\n" +
-                "    _________________________________"+
+                "    _________________________________" +
                 "___________________________\n");
 
     }
