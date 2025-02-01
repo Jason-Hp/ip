@@ -1,6 +1,49 @@
 import java.util.Scanner;
 
 public class Mike {
+
+    public static String contains(String userInput){
+        if (userInput.contains("mark")){
+            return "mark";
+        } else if (userInput.contains("list")) {
+            return "list";
+        } else if (userInput.contains("bye")) {
+            return "bye";
+        } else if (userInput.contains("todo")) {
+            return "todo";
+        } else if (userInput.contains("deadline")) {
+            return "deadline";
+        } else if (userInput.contains("event")) {
+            return "event";
+        }
+        return "ERROR";
+    }
+
+    public static Todo todoParser(String userInput){
+        String todo = userInput.substring(5);
+        return new Todo(todo);
+    }
+
+    public static Deadline deadlineParser(String userInput){
+        String deadline = userInput.substring(8);
+        String[] deadlineSplit = deadline.split(" /by ");
+        return new Deadline(deadlineSplit[0], deadlineSplit[1]);
+    }
+
+    public static Event eventParser(String userInput){
+        String event = userInput.substring(6);
+        String[] eventSplit = event.split(" /from ");
+        String[] fromAndToSplit = eventSplit[1].split(" /to ");
+        return new Event(eventSplit[0], fromAndToSplit[0], fromAndToSplit[1]);
+    }
+
+    public static String itemToString(Task task){
+        return
+                "[" + task.getSymbol() + "]" +
+                "[" + task.getStatusIcon() + "]" +
+                " " + task.getDescription() + "\n";
+    }
+
     public static void main(String[] args) {
         Task[] list = new Task[100];
         int numberOfItems = 0;
@@ -24,46 +67,41 @@ public class Mike {
         String userInput = scanner.nextLine();
         while (!userInput.equalsIgnoreCase("bye")) {
 
-            if (userInput.contains("unmark")) {
-                int itemToUnmark = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            String command = contains(userInput);
 
-                if (itemToUnmark < 0 || itemToUnmark >= numberOfItems) {
-
-                    System.out.println("    _________________________________" +
-                            "___________________________");
-
-                    System.out.println("     Unmark inside the list! Try again!");
-
-                    System.out.println("    _________________________________" +
-                            "___________________________\n");
-
-                    userInput = scanner.nextLine();
-                    continue;
-                }
-                list[itemToUnmark].unmarkAsDone();
+            switch (command) {
+            case "todo":
+                list[numberOfItems] = todoParser(userInput);
+                break;
+            case "deadline":
+                list[numberOfItems] = deadlineParser(userInput);
+                break;
+            case "event":
+                list[numberOfItems] = eventParser(userInput);
+                break;
+            case "list":
                 System.out.println("    _________________________________" +
                         "___________________________\n" +
-                        "     OK, I've marked this task as not done yet:");
+                        "     Here are the tasks in your list:");
 
-                System.out.println("       " + "[" + list[itemToUnmark].getStatusIcon() + "] " + list[itemToUnmark].description);
+                for (int i = 0; i < numberOfItems; i++) {
+                    System.out.print("     "+(i + 1) + "." + itemToString(list[i]));
+                }
 
                 System.out.println("    _________________________________" +
                         "___________________________\n");
 
                 userInput = scanner.nextLine();
                 continue;
-            }
-
-
-            if (userInput.contains("mark")) {
+            case "mark":
                 int itemToMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
                 if (itemToMark < 0 || itemToMark >= numberOfItems) {
 
-                    System.out.println("    _________________________________" +
-                            "___________________________");
+                    System.out.print("    _________________________________" +
+                            "___________________________\n");
 
-                    System.out.println("     Mark inside the list! Try again!");
+                    System.out.println("     "+"Out of bounds! Try again!");
 
                     System.out.println("    _________________________________" +
                             "___________________________\n");
@@ -76,42 +114,56 @@ public class Mike {
                         "___________________________\n" +
                         "     Nice! I've marked this task as done:");
 
-                System.out.println("       " + "[" + list[itemToMark].getStatusIcon() + "] " + list[itemToMark].description);
+                System.out.print("     "+itemToString(list[itemToMark]));
+
+                System.out.println("    _________________________________" +
+                        "___________________________\n");
+                userInput = scanner.nextLine();
+                continue;
+            case "unmark":
+                int itemToUnmark = Integer.parseInt(userInput.split(" ")[1]) - 1;
+
+                if (itemToUnmark < 0 || itemToUnmark >= numberOfItems) {
+
+                    System.out.println("    _________________________________" +
+                            "___________________________");
+
+                    System.out.println("     "+"Out of bounds! Try again!");
+
+                    System.out.println("    _________________________________" +
+                            "___________________________\n");
+
+                    userInput = scanner.nextLine();
+                    continue;
+                }
+                list[itemToUnmark].unmarkAsDone();
+                System.out.println("    _________________________________" +
+                        "___________________________\n" +
+                        "     "+"OK, I've marked this task as not done yet:");
+
+                System.out.println("     "+itemToString(list[itemToUnmark]));
 
                 System.out.println("    _________________________________" +
                         "___________________________\n");
 
                 userInput = scanner.nextLine();
                 continue;
-            }
-
-
-            if (userInput.equalsIgnoreCase("list")) {
-                System.out.println("    _________________________________" +
-                        "___________________________\n" +
-                        "     Here are the tasks in your list:");
-                for (int i = 0; i < numberOfItems; i++) {
-                    System.out.println("     " + (i + 1) + "." + "[" + list[i].getStatusIcon() + "] " + list[i].description);
-                }
-                System.out.println("    _________________________________" +
-                        "___________________________\n");
+            case "ERROR":
+                System.out.println("Invalid command. Try again.");
                 userInput = scanner.nextLine();
                 continue;
             }
 
             System.out.println("    _________________________________" +
                     "___________________________\n" +
-                    "     added: " +
-                    userInput +
-                    "\n" +
+                    "     "+"Got it. I've added this task:\n" +
+                    itemToString(list[numberOfItems])+
+                    "     " + "Now you have "+(numberOfItems+1)+" task in the list."+"\n"+
                     "    _________________________________" +
                     "___________________________\n");
-
-
-            Task t = new Task(userInput);
-            list[numberOfItems] = t;
             numberOfItems++;
             userInput = scanner.nextLine();
+
         }
 
         System.out.println("    _________________________________" +
