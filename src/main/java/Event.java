@@ -3,7 +3,7 @@ public class Event extends Task{
     protected String to;
 
     public Event(String description,String from,String to){
-        super(description);
+        super(description + " (from: "+from+" to: "+to+")");
         this.from=from;
         this.to=to;
         this.symbol = "E";
@@ -15,6 +15,7 @@ public class Event extends Task{
 
     public void setFrom(String from) {
         this.from = from;
+        setDescription(getDescription() + "(from: "+from+" to: "+to+")");
     }
 
     public String getTo() {
@@ -23,5 +24,6 @@ public class Event extends Task{
 
     public void setTo(String to) {
         this.to = to;
+        setDescription(getDescription() + "(from: "+from+" to: "+to+")");
     }
 }
