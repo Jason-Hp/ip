@@ -1,10 +1,12 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String symbol;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.symbol = "";
     }
 
     public String getStatusIcon() {
@@ -17,5 +19,9 @@ public class Task {
 
     public void unmarkAsDone() {
         isDone = false;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 }
