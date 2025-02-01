@@ -4,6 +4,9 @@ public class Mike {
 
     public static final int MAX_ITEMS = 100;
     public static final String SPACES = "     ";
+    public static final int TODO_AND_SPACE = 5;
+    public static final int DEADLINE_AND_SPACE = 9;
+    public static final int EVENT_AND_SPACE = 6;
 
     enum Check {MARK, UNMARK};
 
@@ -21,8 +24,6 @@ public class Mike {
             return "mark";
         } else if (userInput.contains("list")) {
             return "list";
-        } else if (userInput.contains("bye")) {
-            return "bye";
         } else if (userInput.contains("todo")) {
             return "todo";
         } else if (userInput.contains("deadline")) {
@@ -34,18 +35,19 @@ public class Mike {
     }
 
     public static Todo todoParser(String userInput){
-        String todo = userInput.substring(5);
+        String todo = userInput.substring(TODO_AND_SPACE);
         return new Todo(todo);
     }
 
     public static Deadline deadlineParser(String userInput){
-        String deadline = userInput.substring(9);
+        String deadline = userInput.substring(DEADLINE_AND_SPACE);
         String[] deadlineSplit = deadline.split(" /by ");
         return new Deadline(deadlineSplit[0], deadlineSplit[1]);
     }
 
     public static Event eventParser(String userInput){
-        String event = userInput.substring(6);
+        String event = userInput.substring(EVENT_AND_SPACE);
+
         String[] eventSplit = event.split(" /from ");
         String[] fromAndToSplit = eventSplit[1].split(" /to ");
         return new Event(eventSplit[0], fromAndToSplit[0], fromAndToSplit[1]);
@@ -112,7 +114,11 @@ public class Mike {
                 userInput = scanner.nextLine();
                 continue;
             case "ERROR":
-                System.out.println("Invalid command. Try again.");
+
+                System.out.println(LINE_SEPARATOR);
+                System.out.println(SPACES+"Invalid command. Try again.");
+                System.out.println(LINE_SEPARATOR+"\n");
+
                 userInput = scanner.nextLine();
                 continue;
             }
@@ -123,9 +129,9 @@ public class Mike {
                     itemToString(list[numberOfItems])+
                     SPACES + "Now you have "+(numberOfItems+1)+" task in the list."+"\n"+
                     LINE_SEPARATOR+"\n");
+
             numberOfItems++;
             userInput = scanner.nextLine();
-
         }
 
         System.out.println(LINE_SEPARATOR+"\n" +
