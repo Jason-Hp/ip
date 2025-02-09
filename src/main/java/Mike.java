@@ -1,3 +1,10 @@
+import exceptions.EmptyException;
+import exceptions.RandomException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 import java.util.Scanner;
 
 public class Mike {
@@ -19,7 +26,7 @@ public class Mike {
     public static final String LINE_SEPARATOR = "    ______________________________"+
             "______________________________";
 
-    public static String contains(String userInput) throws RandomException{
+    public static String contains(String userInput) throws RandomException {
         if (userInput.contains("mark")){
             return "mark";
         } else if (userInput.contains("list")) {
@@ -34,7 +41,7 @@ public class Mike {
         throw new RandomException();
     }
 
-    public static Todo todoParser(String userInput) throws EmptyException{
+    public static Todo todoParser(String userInput) throws EmptyException {
         String todo = userInput.substring(TODO_AND_SPACE);
         if (todo.isEmpty()){
             throw new EmptyException();
