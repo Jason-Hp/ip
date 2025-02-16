@@ -6,6 +6,7 @@ import task.Task;
 import task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Mike {
 
@@ -75,8 +76,9 @@ public class Mike {
                 " " + task.getDescription() + "\n";
     }
 
+    public static ArrayList<Task> list = new ArrayList<>();
+
     public static void main(String[] args) {
-        Task[] list = new Task[MAX_ITEMS];
         int numberOfItems = 0;
         Scanner scanner = new Scanner(System.in);
         
@@ -103,7 +105,7 @@ public class Mike {
                 switch (command) {
                 case "todo":
                     try {
-                        list[numberOfItems] = todoParser(userInput);
+                        list.add(todoParser(userInput));
                         break;
                     } catch (EmptyException e) {
                         System.out.println(LINE_SEPARATOR);
@@ -115,7 +117,7 @@ public class Mike {
 
                 case "deadline":
                     try {
-                        list[numberOfItems] = deadlineParser(userInput);
+                        list.add(deadlineParser(userInput));
                         break;
                     } catch (EmptyException e) {
                         System.out.println(LINE_SEPARATOR);
@@ -126,7 +128,7 @@ public class Mike {
                     }
                 case "event":
                     try {
-                        list[numberOfItems] = eventParser(userInput);
+                        list.add(eventParser(userInput));
                         break;
                     } catch (EmptyException e) {
                         System.out.println(LINE_SEPARATOR);
@@ -140,7 +142,7 @@ public class Mike {
                             SPACES+"Here are the tasks in your list:");
 
                     for (int i = 0; i < numberOfItems; i++) {
-                        System.out.print(SPACES+(i + 1) + "." + itemToString(list[i]));
+                        System.out.print(SPACES+(i + 1) + "." + itemToString(list.get(i)));
                     }
 
                     System.out.println(LINE_SEPARATOR+"\n");
@@ -169,7 +171,7 @@ public class Mike {
                 System.out.println(LINE_SEPARATOR+"\n" +
                         SPACES+"Got it. I've added this task:\n" +
                         SPACES+
-                        itemToString(list[numberOfItems])+
+                        itemToString(list.get(numberOfItems))+
                         SPACES + "Now you have "+(numberOfItems+1)+" task in the list."+"\n"+
                         LINE_SEPARATOR+"\n");
 
@@ -184,7 +186,7 @@ public class Mike {
 
     }
 
-    private static void markOrUnmark(int itemToMark, int numberOfItems, Task[] list, Check check) {
+    private static void markOrUnmark(int itemToMark, int numberOfItems, ArrayList<Task> list, Check check) {
         if (itemToMark < 0 || itemToMark >= numberOfItems) {
 
             System.out.print(LINE_SEPARATOR + "\n");
@@ -195,17 +197,17 @@ public class Mike {
 
         } else {
             if (check == Check.MARK) {
-                list[itemToMark].markAsDone();
+                list.get(itemToMark).markAsDone();
                 System.out.println(LINE_SEPARATOR+"\n" +
                         "     Nice! I've marked this task as done:");
             }
             else{
-                list[itemToMark].unmarkAsDone();
+                list.get(itemToMark).unmarkAsDone();
                 System.out.println(LINE_SEPARATOR+"\n" +
                         "     OK, I've marked this task as not done yet:");
             }
 
-            System.out.print(SPACES + itemToString(list[itemToMark]));
+            System.out.print(SPACES + itemToString(list.get(itemToMark)));
 
             System.out.println(LINE_SEPARATOR+"\n");
         }
