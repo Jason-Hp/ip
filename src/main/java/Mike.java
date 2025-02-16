@@ -1,11 +1,16 @@
 import exceptions.EmptyException;
 import exceptions.RandomException;
+import filehandler.FileWriter;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
+import filehandler.FileReader;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Mike {
 
@@ -75,9 +80,19 @@ public class Mike {
                 " " + task.getDescription() + "\n";
     }
 
+    public static ArrayList<Task> list = new ArrayList<>();
+
     public static void main(String[] args) {
-        Task[] list = new Task[MAX_ITEMS];
-        int numberOfItems = 0;
+
+        try{
+            list = FileReader.getTasksToBeInitialized();
+            System.out.println("Initialization Success!");
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found!");
+        }
+
+        int numberOfItems = list.size();
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("Hello from\n" + LOGO);
@@ -104,6 +119,7 @@ public class Mike {
                 case "todo":
                     try {
                         list[numberOfItems] = todoParser(userInput);
+                        FileWriter.appendToFile(todoParser(userInput));
                         break;
                     } catch (EmptyException e) {
                         System.out.println(LINE_SEPARATOR);
@@ -111,15 +127,29 @@ public class Mike {
                         System.out.println(LINE_SEPARATOR+"\n");
                         userInput = scanner.nextLine();
                         continue;
+                    } catch (IOException e){
+                        System.out.println(LINE_SEPARATOR);
+                        System.out.println(SPACES+"IO Error. Try again.");
+                        System.out.println(LINE_SEPARATOR+"\n");
+                        userInput = scanner.nextLine();
+                        continue;
                     }
+
 
                 case "deadline":
                     try {
                         list[numberOfItems] = deadlineParser(userInput);
+                        FileWriter.appendToFile(todoParser(userInput));
                         break;
                     } catch (EmptyException e) {
                         System.out.println(LINE_SEPARATOR);
                         System.out.println(SPACES+"Description is empty. Try again.");
+                        System.out.println(LINE_SEPARATOR+"\n");
+                        userInput = scanner.nextLine();
+                        continue;
+                    } catch (IOException e){
+                        System.out.println(LINE_SEPARATOR);
+                        System.out.println(SPACES+"IO Error. Try again.");
                         System.out.println(LINE_SEPARATOR+"\n");
                         userInput = scanner.nextLine();
                         continue;
@@ -127,10 +157,17 @@ public class Mike {
                 case "event":
                     try {
                         list[numberOfItems] = eventParser(userInput);
+                        FileWriter.appendToFile(todoParser(userInput));
                         break;
                     } catch (EmptyException e) {
                         System.out.println(LINE_SEPARATOR);
                         System.out.println(SPACES+"Description is empty. Try again.");
+                        System.out.println(LINE_SEPARATOR+"\n");
+                        userInput = scanner.nextLine();
+                        continue;
+                    } catch (IOException e){
+                        System.out.println(LINE_SEPARATOR);
+                        System.out.println(SPACES+"IO Error. Try again.");
                         System.out.println(LINE_SEPARATOR+"\n");
                         userInput = scanner.nextLine();
                         continue;

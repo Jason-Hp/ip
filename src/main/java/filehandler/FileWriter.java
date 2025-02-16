@@ -3,14 +3,14 @@ package filehandler;
 import task.Task;
 import task.Deadline;
 import task.Event;
-import java.io.FileWriter;
+
 import java.io.IOException;
 
-public class fileWrite {
+public class FileWriter {
     private static final String filePath = "//wsl.localhost/Ubuntu/home/jasonho/cs2113/ip/data/mike.txt";
 
     public static void appendToFile(Task task) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
+        java.io.FileWriter fw = new java.io.FileWriter(filePath, true);
         String toBeWritten = "";
         int markOrUnmark = 0;
         if (task.isDone()){

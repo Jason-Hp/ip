@@ -13,7 +13,7 @@ public class FileReader {
     private static ArrayList<Task> tasksToBeInitialized = new ArrayList<>();
     private static final String filePath = "//wsl.localhost/Ubuntu/home/jasonho/cs2113/ip/data/mike.txt";
 
-    private static ArrayList<Task> printFileContents() throws FileNotFoundException {
+    public static ArrayList<Task> getTasksToBeInitialized() throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
