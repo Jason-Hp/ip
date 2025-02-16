@@ -6,6 +6,7 @@ import task.Task;
 import task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Mike {
 
@@ -37,6 +38,8 @@ public class Mike {
             return "deadline";
         } else if (userInput.contains("event")) {
             return "event";
+        } else if (userInput.contains("delete")) {
+            return "delete";
         }
         throw new RandomException();
     }
@@ -75,8 +78,9 @@ public class Mike {
                 " " + task.getDescription() + "\n";
     }
 
+    public static ArrayList<Task> list = new ArrayList<>();
+
     public static void main(String[] args) {
-        Task[] list = new Task[MAX_ITEMS];
         int numberOfItems = 0;
         Scanner scanner = new Scanner(System.in);
         
@@ -92,6 +96,7 @@ public class Mike {
             while (!userInput.equalsIgnoreCase("bye")) {
 
                 String command = "ERROR";
+                
                 try {
                     command = contains(userInput);
                 } catch (RandomException e) {
@@ -103,7 +108,7 @@ public class Mike {
                 switch (command) {
                 case "todo":
                     try {
-                        list[numberOfItems] = todoParser(userInput);
+                        list.add(todoParser(userInput));
                         break;
                     } catch (EmptyException e) {
                         System.out.println(LINE_SEPARATOR);
@@ -115,7 +120,7 @@ public class Mike {
 
                 case "deadline":
                     try {
-                        list[numberOfItems] = deadlineParser(userInput);
+                        list.add(deadlineParser(userInput));
                         break;
                     } catch (EmptyException e) {
                         System.out.println(LINE_SEPARATOR);
@@ -126,7 +131,7 @@ public class Mike {
                     }
                 case "event":
                     try {
-                        list[numberOfItems] = eventParser(userInput);
+                        list.add(eventParser(userInput));
                         break;
                     } catch (EmptyException e) {
                         System.out.println(LINE_SEPARATOR);
@@ -139,8 +144,8 @@ public class Mike {
                     System.out.println(LINE_SEPARATOR+"\n" +
                             SPACES+"Here are the tasks in your list:");
 
-                    for (int i = 0; i < numberOfItems; i++) {
-                        System.out.print(SPACES+(i + 1) + "." + itemToString(list[i]));
+                    for (int i = 0; i < list.size(); i++) {
+                        System.out.print(SPACES+(i + 1) + "." + itemToString(list.get(i)));
                     }
 
                     System.out.println(LINE_SEPARATOR+"\n");
@@ -161,6 +166,13 @@ public class Mike {
 
                     userInput = scanner.nextLine();
                     continue;
+                case "delete":
+                    int itemToDelete = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    
+                    deleteTask(itemToDelete);
+                    
+                    userInput = scanner.nextLine();
+                    continue;
                 case "ERROR":
                     userInput = scanner.nextLine();
                     continue;
@@ -169,8 +181,8 @@ public class Mike {
                 System.out.println(LINE_SEPARATOR+"\n" +
                         SPACES+"Got it. I've added this task:\n" +
                         SPACES+
-                        itemToString(list[numberOfItems])+
-                        SPACES + "Now you have "+(numberOfItems+1)+" task in the list."+"\n"+
+                        itemToString(list.get(list.size()-1))+
+                        SPACES + "Now you have "+list.size()+" task in the list."+"\n"+
                         LINE_SEPARATOR+"\n");
 
                 numberOfItems++;
@@ -183,29 +195,47 @@ public class Mike {
                 LINE_SEPARATOR+"\n");
 
     }
+    
+    private static void deleteTask(int itemToDelete) {
+        if (itemToDelete < 0 || itemToDelete >= list.size()) {
+            outOfBounds();
+            return;
+        }
+        Task taskToDelete = list.get(itemToDelete);
+        list.remove(itemToDelete);
+        System.out.println(LINE_SEPARATOR+"\n" +
+                "     OK, I've removed this task:");
+        System.out.print(SPACES + itemToString(taskToDelete));
+        System.out.println(SPACES + "Now you have "+list.size()+" task in the list.");
+        System.out.println(LINE_SEPARATOR+"\n");
+    }
 
-    private static void markOrUnmark(int itemToMark, int numberOfItems, Task[] list, Check check) {
+    private static void outOfBounds() {
+        System.out.print(LINE_SEPARATOR + "\n");
+
+        System.out.println(SPACES + "Out of bounds! Try again!");
+
+        System.out.println(LINE_SEPARATOR + "\n");
+    }
+
+    private static void markOrUnmark(int itemToMark, int numberOfItems, ArrayList<Task> list, Check check) {
         if (itemToMark < 0 || itemToMark >= numberOfItems) {
 
-            System.out.print(LINE_SEPARATOR + "\n");
-
-            System.out.println(SPACES + "Out of bounds! Try again!");
-
-            System.out.println(LINE_SEPARATOR + "\n");
+            outOfBounds();
 
         } else {
             if (check == Check.MARK) {
-                list[itemToMark].markAsDone();
+                list.get(itemToMark).markAsDone();
                 System.out.println(LINE_SEPARATOR+"\n" +
                         "     Nice! I've marked this task as done:");
             }
             else{
-                list[itemToMark].unmarkAsDone();
+                list.get(itemToMark).unmarkAsDone();
                 System.out.println(LINE_SEPARATOR+"\n" +
                         "     OK, I've marked this task as not done yet:");
             }
 
-            System.out.print(SPACES + itemToString(list[itemToMark]));
+            System.out.print(SPACES + itemToString(list.get(itemToMark)));
 
             System.out.println(LINE_SEPARATOR+"\n");
         }
