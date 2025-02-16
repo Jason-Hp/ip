@@ -11,6 +11,7 @@ public class Event extends Task {
         this.symbol = "E";
     }
 
+
     public String getFrom() {
         return from;
     }

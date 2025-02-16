@@ -1,6 +1,6 @@
 import exceptions.EmptyException;
 import exceptions.RandomException;
-import filehandler.FileWriter;
+import filehandler.FileWriterNew;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -122,7 +122,7 @@ public class Mike {
                 switch (command) {
                 case "todo":
                     try {
-                        FileWriter.appendToFile(todoParser(userInput));
+                        FileWriterNew.appendToFile(todoParser(userInput));
                         list.add(todoParser(userInput));
                         break;
                     } catch (EmptyException e) {
@@ -142,7 +142,7 @@ public class Mike {
 
                 case "deadline":
                     try {
-                        FileWriter.appendToFile(todoParser(userInput));
+                        FileWriterNew.appendToFile(deadlineParser(userInput));
                         list.add(deadlineParser(userInput));
                         break;
                     } catch (EmptyException e) {
@@ -160,7 +160,7 @@ public class Mike {
                     }
                 case "event":
                     try {
-                        FileWriter.appendToFile(todoParser(userInput));
+                        FileWriterNew.appendToFile(eventParser(userInput));
                         list.add(eventParser(userInput));
                         break;
                     } catch (EmptyException e) {
