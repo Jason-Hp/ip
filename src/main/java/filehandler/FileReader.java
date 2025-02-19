@@ -40,7 +40,6 @@ public class FileReader {
                 break;
             case "E":
                 String time = information[3];
-                System.out.println(time);
                 String[] fromAndTo = time.split(" to ");
                 Event eventToBeAdded = new Event(taskDescription, fromAndTo[0].split("from ")[1], fromAndTo[1]);
                 if (isMarked.equals("1")) {
