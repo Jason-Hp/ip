@@ -237,6 +237,15 @@ public class Mike {
             outOfBounds();
             return;
         }
+        try{
+            FileWriterNew.deleteTask(itemToDelete);
+        }
+        catch(IOException e){
+            System.out.println(LINE_SEPARATOR);
+            System.out.println(SPACES+"IO Error. Try again.");
+            System.out.println(LINE_SEPARATOR+"\n");
+            return;
+        }
         Task taskToDelete = list.get(itemToDelete);
         list.remove(itemToDelete);
         System.out.println(LINE_SEPARATOR+"\n" +
