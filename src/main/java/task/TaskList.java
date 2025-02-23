@@ -26,54 +26,69 @@ public class TaskList {
         return list;
     }
 
-    public void addTodo(String userInput) throws EmptyException {
-        list.add(Parser.todoParser(userInput));
+    public Task addTodo(String userInput) throws EmptyException {
+        Task task = Parser.todoParser(userInput);
+        list.add(task);
+        return task;
     }
 
-    public void addDeadline(String userInput) throws EmptyException {
-        list.add(Parser.deadlineParser(userInput));
+    public Task addDeadline(String userInput) throws EmptyException {
+        Task task = Parser.deadlineParser(userInput);
+        list.add(task);
+        return task;
     }
 
-    public void addEvent(String userInput) throws EmptyException {
-        list.add(Parser.eventParser(userInput));
+    public Task addEvent(String userInput) throws EmptyException {
+        Task task = Parser.eventParser(userInput);
+        list.add(task);
+        return task;
     }
 
-    public void addTask(String command, String userInput) throws EmptyException {
+    public Task addTask(String command, String userInput) throws EmptyException {
+        Task task;
         switch (command) {
-            case "todo":
-                addTodo(userInput);
-                break;
-            case "deadline":
-                addDeadline(userInput);
-                break;
-            case "event":
-                addEvent(userInput);
-                break;
+        case "todo":
+            task = addTodo(userInput);
+            break;
+        case "deadline":
+            task = addDeadline(userInput);
+            break;
+        case "event":
+            task = addEvent(userInput);
+            break;
+        default:
+            task = null;
         }
         numberOfTasks++;
+        return task;
     }
 
-    public Task deleteTask(ArrayList<Task> list, int itemToDelete) throws OutOfBounds {
+    public Task deleteTask(String userInput) throws OutOfBounds {
+        int itemToDelete = Parser.indexOfItem(userInput);
         if (itemToDelete < 0 || itemToDelete >= list.size()) {
             throw new OutOfBounds();
         }
-
+        Task temp = list.get(itemToDelete);
         list.remove(itemToDelete);
-        return list.get(itemToDelete);
+        return temp;
 
     }
 
-    private static void markTask(int itemToMark, ArrayList<Task> list) throws OutOfBounds {
+    public int markTask(String userInput) throws OutOfBounds {
+        int itemToMark = Parser.indexOfItem(userInput);
         if (itemToMark < 0 || itemToMark >= list.size()) {
             throw new OutOfBounds();
         }
         list.get(itemToMark).markAsDone();
+        return itemToMark;
     }
 
-    private static void UnmarkTask(int itemToMark, ArrayList<Task> list) throws OutOfBounds {
-        if (itemToMark < 0 || itemToMark >= list.size()) {
+    public int UnmarkTask(String userInput) throws OutOfBounds {
+        int itemToUnmark = Parser.indexOfItem(userInput);
+        if (itemToUnmark < 0 || itemToUnmark >= list.size()) {
             throw new OutOfBounds();
         }
-        list.get(itemToMark).unmarkAsDone();
+        list.get(itemToUnmark).unmarkAsDone();
+        return itemToUnmark;
     }
 }

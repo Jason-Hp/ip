@@ -13,7 +13,9 @@ public class Parser {
     public static final int EVENT_AND_SPACE = 6;
 
     public static String contains(String userInput) throws RandomException {
-        if (userInput.contains("mark")){
+        if (userInput.contains("unmark")){
+            return "unmark";
+        } else if (userInput.contains("mark")) {
             return "mark";
         } else if (userInput.contains("list")) {
             return "list";

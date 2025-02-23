@@ -128,10 +128,10 @@ public class Ui {
         System.out.println(LINE_SEPARATOR+"\n");
     }
 
-    public void showDeleteTask(ArrayList<Task> list, int itemToDelete){
+    public void showDeleteTask(ArrayList<Task> list, Task deletedTask){
         System.out.println(LINE_SEPARATOR+"\n" +
                 "     OK, I've removed this task:");
-        System.out.print(SPACES + itemToString(list.get(itemToDelete)));
+        System.out.print(SPACES + itemToString(deletedTask));
         System.out.println(SPACES + "Now you have "+list.size()+" task in the list.");
         System.out.println(LINE_SEPARATOR+"\n");
     }
