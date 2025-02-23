@@ -68,26 +68,38 @@ public class Mike {
                 break;
             case "mark":
                 try{
-                    ui.showMarkTask(list.getList(),list.markTask(userInput));
+                    int index = list.markTask(userInput);
+                    ui.showMarkTask(list.getList(),index);
+                    fileWriter.markTask(index);
                 } catch (OutOfBounds e) {
                     ui.showOutOfBounds();
+                } catch (IOException e) {
+                    ui.showIOException();
                 } finally {
                     break;
                 }
             case "unmark":
                 try{
-                    ui.showUnmarkTask(list.getList(),list.UnmarkTask(userInput));
+                    int index = list.UnmarkTask(userInput);
+                    ui.showUnmarkTask(list.getList(),index);
+                    fileWriter.unmarkTask(index);
                 } catch (OutOfBounds e) {
                     ui.showOutOfBounds();
+                } catch (IOException e) {
+                    ui.showIOException();
                 } finally {
                     break;
                 }
             case "delete":
                 try{
                     ui.showDeleteTask(list.getList(), list.deleteTask(userInput));
+                    fileWriter.deleteTask(userInput);
                 } catch (OutOfBounds e) {
                     ui.showOutOfBounds();
-                } finally {
+                } catch (IOException e) {
+                    ui.showIOException();
+                }
+                finally {
                     break;
                 }
             }

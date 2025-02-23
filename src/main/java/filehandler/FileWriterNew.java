@@ -3,6 +3,7 @@ package filehandler;
 import task.Task;
 import task.Deadline;
 import task.Event;
+import ui.Parser;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -43,7 +44,8 @@ public class FileWriterNew {
         fw.close();
     }
 
-    public void deleteTask(int index) throws IOException {
+    public void deleteTask(String userInput) throws IOException {
+        int index = Parser.indexOfItem(userInput);
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         String newList = "";
@@ -51,6 +53,46 @@ public class FileWriterNew {
         while (s.hasNextLine()) {
             String taskInformation = s.nextLine();
             if(currentIndex != index){
+                newList += taskInformation + System.lineSeparator();
+            }
+            currentIndex++;
+        }
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(newList);
+        fw.close();
+    }
+
+    public void markTask(int index) throws IOException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        String newList = "";
+        int currentIndex = 0;
+        while (s.hasNextLine()) {
+            String taskInformation = s.nextLine();
+            if(currentIndex == index){
+                taskInformation = taskInformation.replaceFirst("0","1");
+                newList += taskInformation + System.lineSeparator();
+            }else{
+                newList += taskInformation + System.lineSeparator();
+            }
+            currentIndex++;
+        }
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(newList);
+        fw.close();
+    }
+
+    public void unmarkTask(int index) throws IOException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        String newList = "";
+        int currentIndex = 0;
+        while (s.hasNextLine()) {
+            String taskInformation = s.nextLine();
+            if(currentIndex == index){
+                taskInformation = taskInformation.replaceFirst("1","0");
+                newList += taskInformation + System.lineSeparator();
+            }else{
                 newList += taskInformation + System.lineSeparator();
             }
             currentIndex++;
