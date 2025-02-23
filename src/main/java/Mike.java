@@ -31,6 +31,11 @@ public class Mike {
     }
 
     public void run(){
+        assert fileReader != null : "FileReader should not be null";
+        assert fileWriter != null : "FileWriter should not be null";
+        assert list != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+
         ui.showStart();
 
         boolean isDone = false;
