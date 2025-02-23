@@ -1,3 +1,4 @@
-E | 0 | JasonHo attend CS2113 lecture Friday 21 Feb 2025 | from 4 to 6pm
-T | 0 | find books
-T | 1 | delete books
+T | 0 | Jogging
+E | 1 | CNY | from 1st Jan to 3rd Jan
+T | 0 | read the book on CS2113
+D | 0 | complete exercise book | 09 Mar
