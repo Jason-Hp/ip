@@ -107,7 +107,14 @@ public class Mike {
                 finally {
                     break;
                 }
-
+            case "find":
+                try{
+                    ui.showList(list.findTasks(userInput));
+                } catch (IndexOutOfBoundsException e) {
+                    ui.showError(e.getMessage());
+                } finally {
+                    break;
+                }
             }
         }
         ui.showEnd();

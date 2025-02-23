@@ -29,7 +29,7 @@ public class Parser {
             return "delete";
         } else if (userInput.equalsIgnoreCase("bye")) {
             return "bye";
-        } else if (userInput.equalsIgnoreCase("find")) {
+        } else if (userInput.contains("find")) {
             return "find";
         }
         throw new RandomException();
@@ -65,6 +65,9 @@ public class Parser {
     public static int indexOfItem(String userInput){
         return Integer.parseInt(userInput.split(" ")[1]) - 1;
     }
-    
+
+    public static String findParser(String userInput) throws IndexOutOfBoundsException{
+        return userInput.split(" ")[1];
+    }
 
 }

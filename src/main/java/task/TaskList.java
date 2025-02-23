@@ -92,5 +92,14 @@ public class TaskList {
         return itemToUnmark;
     }
 
-
+    public ArrayList<Task> findTasks(String userInput) throws IndexOutOfBoundsException {
+        String taskToBeFound = Parser.findParser(userInput);
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : list) {
+            if (task.getDescription().contains(taskToBeFound)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
 }
