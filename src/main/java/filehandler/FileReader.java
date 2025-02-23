@@ -11,14 +11,29 @@ import task.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a file reader. A <code>FileReader</code> object reads a file and parses its data
+ * and returns an ArrayList of Tasks that is collected from the data in the file.
+ */
 public class FileReader {
     private ArrayList<Task> tasksToBeInitialized;
     private String filePath;
 
+    /**
+     * Constructs a FileReader object that reads from a specific file path.
+     *
+     * @param filePath File To Read From.
+     */
     public FileReader(String filePath) {
         this.filePath = (new File(filePath)).getAbsolutePath();
     }
 
+    /**
+     * Reads and parses the data from a file, returns an ArrayList of Tasks that is collected from the data in the file.
+     *
+     * @return List Of Tasks.
+     * @throws FileNotFoundException If File Is Not Found At File Path.
+     */
     public ArrayList<Task> getTasksToBeInitialized() throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);

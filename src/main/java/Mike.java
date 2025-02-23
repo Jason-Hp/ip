@@ -12,12 +12,20 @@ import ui.Ui;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Presents the chatbot called Mike. A Mike object is a CLI interactive
+ * chatbot that helps to organise tasks for user.
+ */
 public class Mike {
     private Ui ui;
     private TaskList list;
     private FileReader fileReader;
     private FileWriterNew fileWriter;
 
+
+    /**
+     * Constructs Mike Object.
+     */
     public Mike(){
         ui = new Ui();
         fileReader = new FileReader("./data/mike.txt");
@@ -30,6 +38,11 @@ public class Mike {
         }
     }
 
+
+    /**
+     * Runs or starts the Mike object for interaction between
+     * user and Mike, using the CLI for any user interactions
+     */
     public void run(){
         assert fileReader != null : "FileReader should not be null";
         assert fileWriter != null : "FileWriter should not be null";
