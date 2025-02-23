@@ -12,8 +12,13 @@ import java.io.FileWriter;
 import java.util.Scanner;
 
 public class FileWriterNew {
-    private static final String filePath = (new File("./data/mike.txt")).getAbsolutePath();
-    public static void appendToFile(Task task) throws IOException {
+    private String filePath;
+
+    public FileWriterNew(String filePath) {
+        this.filePath = (new File(filePath)).getAbsolutePath();
+    }
+
+    public void appendToFile(Task task) throws IOException {
         FileWriter fw = new FileWriter(filePath,true);
 
         String toBeWritten = "";
@@ -38,7 +43,7 @@ public class FileWriterNew {
         fw.close();
     }
 
-    public static void deleteTask(int index) throws IOException {
+    public void deleteTask(int index) throws IOException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         String newList = "";

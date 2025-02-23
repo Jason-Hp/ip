@@ -10,12 +10,17 @@ import task.Todo;
 import java.util.ArrayList;
 
 public class FileReader {
-    private static ArrayList<Task> tasksToBeInitialized = new ArrayList<>();
-    private static final String filePath = (new File("./data/mike.txt")).getAbsolutePath();
+    private ArrayList<Task> tasksToBeInitialized;
+    private String filePath;
 
-    public static ArrayList<Task> getTasksToBeInitialized() throws FileNotFoundException {
+    public FileReader(String filePath) {
+        this.filePath = (new File(filePath)).getAbsolutePath();
+    }
+
+    public ArrayList<Task> getTasksToBeInitialized() throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
+        tasksToBeInitialized = new ArrayList<>();
         while (s.hasNext()) {
             String[] information = s.nextLine().split(" \\| ");
             String typeOfTask = information[0];
