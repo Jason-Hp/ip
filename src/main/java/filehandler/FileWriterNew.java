@@ -10,14 +10,27 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 
-
+/**
+ * Represents a File Writer. A <code>FileWriterNew</code> object adds, update, delete tasks from a file.
+ */
 public class FileWriterNew {
     private String filePath;
 
+    /**
+     * Constructs a FileWriterNew object that writes to a specific file path.
+     *
+     * @param filePath File To Read From.
+     */
     public FileWriterNew(String filePath) {
         this.filePath = (new File(filePath)).getAbsolutePath();
     }
 
+    /**
+     * Append a task to the file
+     *
+     * @param task Task To Be Added.
+     * @throws IOException If Writing To The File Causes Error.
+     */
     public void appendToFile(Task task) throws IOException {
         FileWriter fw = new FileWriter(filePath,true);
 
@@ -43,6 +56,12 @@ public class FileWriterNew {
         fw.close();
     }
 
+    /**
+     * Parses the user's input and delete the task specified by the user from the file.
+     *
+     * @param userInput User's Input.
+     * @throws IOException If Writing To The File Causes Error.
+     */
     public void deleteTask(String userInput) throws IOException {
         int index = Parser.indexOfItem(userInput);
         File f = new File(filePath);
@@ -61,6 +80,12 @@ public class FileWriterNew {
         fw.close();
     }
 
+    /**
+     * Marks the task specificed by the index in the file
+     *
+     * @param index Index Of Task To Be Marked.
+     * @throws IOException If Writing To The File Causes Error.
+     */
     public void markTask(int index) throws IOException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -81,6 +106,12 @@ public class FileWriterNew {
         fw.close();
     }
 
+    /**
+     * Unmarks the task specificed by the index in the file
+     *
+     * @param index Index Of Task To Be Unmarked.
+     * @throws IOException If Writing To The File Causes Error.
+     */
     public void unmarkTask(int index) throws IOException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);

@@ -2,12 +2,16 @@ package task;
 
 import exceptions.EmptyException;
 import exceptions.OutOfBounds;
-import filehandler.FileWriterNew;
+
 import ui.Parser;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a task list. A <code>TaskList</code> object is an object that
+ * handles the list of tasks, by adding, updating, getting/reading, or deleting tasks
+ * from the list.
+ */
 public class TaskList {
     private ArrayList<Task> list;
     private int numberOfTasks;
@@ -22,28 +26,61 @@ public class TaskList {
         this.numberOfTasks = 0;
     }
 
+    /**
+     * Returns the current list of tasks.
+     *
+     * @return Task List.
+     */
     public ArrayList<Task> getList() {
         return list;
     }
 
+    /**
+     * Adds a todo into the list and return said todo as well.
+     *
+     * @param userInput User's input.
+     * @return Added Task.
+     * @throws EmptyException If there is no todo .
+     */
     public Task addTodo(String userInput) throws EmptyException {
         Task task = Parser.todoParser(userInput);
         list.add(task);
         return task;
     }
 
+    /**
+     * Adds a deadline into the list and return said deadline as well.
+     *
+     * @param userInput User's input.
+     * @return Added Deadline.
+     * @throws EmptyException If there is no deadline.
+     */
     public Task addDeadline(String userInput) throws EmptyException {
         Task task = Parser.deadlineParser(userInput);
         list.add(task);
         return task;
     }
 
+    /**
+     * Adds an event into the list and return said event as well.
+     *
+     * @param userInput User's input.
+     * @return Added event.
+     * @throws EmptyException If there is no event.
+     */
     public Task addEvent(String userInput) throws EmptyException {
         Task task = Parser.eventParser(userInput);
         list.add(task);
         return task;
     }
 
+    /**
+     * Adds a task into the list and return said task as well.
+     *
+     * @param userInput User's input
+     * @return Added Task
+     * @throws EmptyException If there is no task
+     */
     public Task addTask(String command, String userInput) throws EmptyException {
         Task task;
         switch (command) {
@@ -62,6 +99,7 @@ public class TaskList {
         numberOfTasks++;
         return task;
     }
+
 
     public Task deleteTask(String userInput) throws OutOfBounds {
         int itemToDelete = Parser.indexOfItem(userInput);

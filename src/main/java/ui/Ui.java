@@ -7,7 +7,10 @@ import task.Task;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
+/**
+ * Represents the ui that the user interacts with. A <code>Ui</code> object handles all the interaction
+ * between program and user. It handles user's input and also display to the CLI for the user to see/use.
+ */
 public class Ui {
 
     public static final String LOGO = ".------..------..------..------.\n" +
@@ -30,22 +33,43 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads the user's input using a scanner and parsing the input to update the current
+     * command. Returns the user input as a String.
+     *
+     * @return User's Input.
+     * @throws RandomException If command is not legitimate.
+     */
     public String readUserInput() throws RandomException {
         userInput = scanner.nextLine();
         command = Parser.contains(userInput);
         return userInput;
     }
 
+    /**
+     * Returns command of the current user's input.
+     *
+     * @return Current Command.
+     */
     public String getCommand() {
         return command;
     }
 
+    /**
+     * Format task into a suitable and printable string format. Return said string.
+     *
+     * @param task Task To Be Formatted.
+     * @return String Formatted Task.
+     */
     public String itemToString(Task task){
         return  "[" + task.getSymbol() + "]" +
                 "[" + task.getStatusIcon() + "]" +
                 " " + task.getDescription() + "\n";
     }
 
+    /**
+     * Prints the start of the program.
+     */
     public void showStart(){
         System.out.println("Hello from\n" + LOGO);
 
@@ -55,12 +79,20 @@ public class Ui {
                 LINE_SEPARATOR+"\n");
     }
 
+    /**
+     * Prints the end of the program.
+     */
     public void showEnd(){
         System.out.println(LINE_SEPARATOR+"\n" +
                 SPACES +"Bye. Hope to see you again soon!\n" +
                 LINE_SEPARATOR+"\n");
     }
 
+    /**
+     * Prints error message in a suitable format.
+     *
+     * @param error Error Message
+     */
     public void showError(String error){
         System.out.print(LINE_SEPARATOR + "\n");
 
@@ -69,6 +101,9 @@ public class Ui {
         System.out.println(LINE_SEPARATOR + "\n");
     }
 
+    /**
+     * Prints Out-Of-Bounds error message
+     */
     public void showOutOfBounds() {
         System.out.print(LINE_SEPARATOR + "\n");
 
@@ -77,24 +112,38 @@ public class Ui {
         System.out.println(LINE_SEPARATOR + "\n");
     }
 
+    /**
+     * Prints Random Error message.
+     */
     public void showRandomException(){
         System.out.println(LINE_SEPARATOR);
         System.out.println(SPACES+"Invalid command. Try again.");
         System.out.println(LINE_SEPARATOR+"\n");
     }
 
+    /**
+     * Prints Empty Error message.
+     */
     public void showEmptyException(){
         System.out.println(LINE_SEPARATOR);
         System.out.println(SPACES+"Description is empty. Try again.");
         System.out.println(LINE_SEPARATOR+"\n");
     }
 
+    /**
+     * Prints IO Error message.
+     */
     public void showIOException(){
         System.out.println(LINE_SEPARATOR);
         System.out.println(SPACES+"IO Error. Try again.");
         System.out.println(LINE_SEPARATOR+"\n");
     }
 
+    /**
+     * Prints the current list in a suitable format.
+     *
+     * @param list List Of Tasks.
+     */
     public void showList(ArrayList<Task> list){
         System.out.println(LINE_SEPARATOR+"\n" +
                 SPACES+"Here are the tasks in your list:");
@@ -106,6 +155,11 @@ public class Ui {
         System.out.println(LINE_SEPARATOR+"\n");
     }
 
+    /**
+     * Prints the recently added task in a suitable format.
+     *
+     * @param list List Of Task.
+     */
     public void showAddTask(ArrayList<Task> list){
         System.out.println(LINE_SEPARATOR+"\n" +
                 SPACES+"Got it. I've added this task:\n" +
