@@ -9,6 +9,7 @@ import task.TaskList;
 
 import ui.Ui;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -28,6 +29,21 @@ public class Mike {
      */
     public Mike(){
         ui = new Ui();
+
+        File dataDirectory = new File("./data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdirs();
+        }
+
+        File mikeFile = new File("./data/mike.txt");
+        try {
+            if (!mikeFile.exists()) {
+                mikeFile.createNewFile();
+        }
+        } catch (IOException e) {
+            ui.showIOException();
+        }
+
         fileReader = new FileReader("./data/mike.txt");
         fileWriter = new FileWriterNew("./data/mike.txt");
         try{
