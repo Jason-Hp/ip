@@ -27,8 +27,8 @@ public class FileReader {
             String isMarked = information[1];
             String taskDescription = information[2];
 
+            //Reading data from file to populate the task list
             switch (typeOfTask) {
-
             case "T":
                 Todo todoToBeAdded = new Todo(taskDescription);
                 if (isMarked.equals("1")) {
