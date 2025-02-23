@@ -5,12 +5,11 @@ import task.Deadline;
 import task.Event;
 import ui.Parser;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.util.Scanner;
+
 
 public class FileWriterNew {
     private String filePath;

@@ -1,7 +1,9 @@
 package ui;
 
 import exceptions.RandomException;
+
 import task.Task;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
