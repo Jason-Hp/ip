@@ -1,6 +1,14 @@
 # Mike User Guide
 
-![img.png](img.png)
+```
+Hello from
+.------..------..------..------.
+|M.--. ||I.--. ||K.--. ||E.--. |
+| (\/) || (\/) || :/\: || (\/) |
+| :\/: || :\/: || :\/: || :\/: |
+| '--'M|| '--'I|| '--'K|| '--'E|
+`------'`------'`------'`------'
+```
 
 Mike is a CLI-based interactive chatbot that helps users organize and manage tasks 
 efficiently. It supports adding, marking, unmarking, deleting, and 
